@@ -1,0 +1,9 @@
+[app]
+vm2
+vm3 ansible_connection=local
+
+[database]
+vm1
+
+[web]
+vm1
