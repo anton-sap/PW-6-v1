@@ -49,3 +49,14 @@
     - ansible_facts['os_family'] == "Debian"
   notify:
     - apt_update
+- name: Install latest docker version
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+  when:
+    - ansible_facts['os_family'] == "Debian"
