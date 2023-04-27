@@ -1,0 +1,6 @@
+---
+- hosts: app
+  gather_facts: True
+  become: yes
+  roles:
+    - docker
