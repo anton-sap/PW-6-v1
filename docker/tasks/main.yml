@@ -34,6 +34,7 @@
     - ca-certificates
     - curl
     - gnupg
+    - python3-apt
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Add Docker’s official GPG key
