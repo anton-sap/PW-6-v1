@@ -4,38 +4,38 @@
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
-    with_items:
-      - docker-engine
-      - docker.io
-      - containerd
-      - runc
-    update_cache: yes
+  with_items:
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+  update_cache: yes
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Uninstall old versions while Centos
   ansible.builtin.apt:
     name: "{{ item }}"
     state: absent
-    with_items:
-      - docker
-      - docker-client
-      - docker-client-latest
-      - docker-common
-      - docker-latest
-      - docker-latest-logrotate
-      - docker-logrotate
-      - docker-engine
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-engine
   when:
     - ansible_facts['os_family'] == "RedHat"
 # Setup Docker repo
 - name:  Install required pkgs while Ubuntu
   ansible.builtin.apt:
     name: "{{ item }}"
-    with_items:
-      - ca-certificates
-      - curl
-      - gnupg
-    update_cache: yes
+  with_items:
+    - ca-certificates
+    - curl
+    - gnupg
+  update_cache: yes
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Add Docker’s official GPG key
