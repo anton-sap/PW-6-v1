@@ -9,7 +9,6 @@
     - docker.io
     - containerd
     - runc
-  update_cache: yes
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Uninstall old versions while Centos
@@ -35,7 +34,6 @@
     - ca-certificates
     - curl
     - gnupg
-  update_cache: yes
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Add Docker’s official GPG key
