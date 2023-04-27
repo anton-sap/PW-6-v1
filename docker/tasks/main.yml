@@ -47,3 +47,5 @@
   ansible.builtin.command: sh /tmp/setup_docker_repo.sh
   when:
     - ansible_facts['os_family'] == "Debian"
+  notify:
+    - apt_update

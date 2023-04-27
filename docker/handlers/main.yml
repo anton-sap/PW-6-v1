@@ -1,2 +1,5 @@
 ---
 # handlers file for docker
+- name: apt_update
+  ansible.builtin.apt:
+    update_cache: yes
