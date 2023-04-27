@@ -41,5 +41,7 @@
   ansible.builtin.shell: "{{ item }}"
   with_items:
     - sudo install -m 0755 -d /etc/apt/keyrings
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    - sudo chmod a+r /etc/apt/keyrings/docker.gpg
   when:
     - ansible_facts['os_family'] == "Debian"
