@@ -38,6 +38,7 @@
   when:
     - ansible_facts['os_family'] == "Debian"
 - name: Add Docker’s official GPG key
-  ansible.builtin.command: install -m 0755 -d /etc/apt/keyrings
+  ansible.builtin.command:
+    - install -m 0755 -d /etc/apt/keyrings
   when:
     - ansible_facts['os_family'] == "Debian"
