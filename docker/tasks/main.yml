@@ -2,9 +2,9 @@
 # Uninstall old Versions
 - name: Uninstall old versions while Debian
   ansible.builtin.apt:
-    name: "{{ with_items }}"
+    name: "{{ item }}"
     state: absent
-    item:
+    with_items:
       - docker-engine
       - docker.io
       - containerd
@@ -12,12 +12,11 @@
     update_cache: yes
   when:
     - ansible_facts['os_family'] == "Debian"
-
 - name: Uninstall old versions while Centos
   ansible.builtin.apt:
-    name: "{{ with_items }}"
+    name: "{{ item }}"
     state: absent
-    item:
+    with_items:
       - docker
       - docker-client
       - docker-client-latest
@@ -31,8 +30,8 @@
 # Setup Docker repo
 - name:  Install required pkgs while Ubuntu
   ansible.builtin.apt:
-    name: "{{ with_items }}"
-    item:
+    name: "{{ item }}"
+    with_items:
       - ca-certificates
       - curl
       - gnupg
