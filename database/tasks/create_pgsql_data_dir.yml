@@ -1,7 +1,7 @@
 ---
 - name: Create new dir
   ansible.builtin.file:
-    path: "{{ postgresql_data_dir }}"
+    path: {{ postgresql_data_dir }}
     state: directory
     owner: postgres
     group: postgres
