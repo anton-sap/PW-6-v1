@@ -1,0 +1,7 @@
+---
+- name: Change PGSQL DATA Dir
+  lineinfile:
+    path: /etc/postgresql/{{ postgresql_ver }}/main/postgresql.conf
+    regexp: '^(.*)data_directory = (.*)$'
+    line: 'data_directory = {{ postgresql_data_dir }}'
+    backrefs: yes
