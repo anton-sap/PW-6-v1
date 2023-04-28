@@ -1,5 +1,5 @@
 ---
-# Uninstall old Versions
+# Uninstall old version on Debian based systems
 - name: Uninstall old versions while Debian
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -11,7 +11,8 @@
     - runc
   when:
     - ansible_facts['os_family'] == "Debian"
-- name: Uninstall old versions while Centos
+# Uninstall old version on RHEL Based Systems
+- name: Uninstall old versions while RedHat
   ansible.builtin.yum:
     name: "{{ item }}"
     state: absent
@@ -26,7 +27,7 @@
     - docker-engine
   when:
     - ansible_facts['os_family'] == "RedHat"
-# Setup Docker repo
+# Setup Docker repo on Debian based systems
 - name:  Install required pkgs while Ubuntu
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -49,7 +50,7 @@
     - ansible_facts['os_family'] == "Debian"
   notify:
     - apt_update
-- name: Install latest docker version
+- name: Install latest docker version while Ubuntu
   ansible.builtin.apt:
     name: "{{ item }}"
   with_items:
@@ -60,3 +61,14 @@
     - docker-compose-plugin
   when:
     - ansible_facts['os_family'] == "Debian"
+# Prepare RedHat based systems
+- name: Install Docker Repo while RedHat
+  ansible.builtin.yum:
+    name: yum-utils
+    state: installed
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+- name: Configure Docker Repo
+  ansible.builtin.command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  when:
+    - ansible_facts['os_family'] == "RedHat"
