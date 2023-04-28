@@ -6,4 +6,4 @@
   run_once: yes
 - name: Install Postgresql
   ansible.builtin.import_tasks:
-    file:  install_postgresql.yml
+    file: install_postgresql.yml
