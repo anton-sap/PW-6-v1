@@ -10,3 +10,6 @@
 - name: Create PGSQL data dir
   ansible.builtin.import_tasks:
     file: create_pgsql_data_dir.yml
+- name: Change PGSQL data dir
+  ansible.builtin.import_tasks:
+    file: change_pgsql_data_dir.yml
