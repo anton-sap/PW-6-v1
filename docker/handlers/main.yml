@@ -3,3 +3,8 @@
 - name: apt_update
   ansible.builtin.apt:
     update_cache: yes
+- name: start_docker
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: yes
