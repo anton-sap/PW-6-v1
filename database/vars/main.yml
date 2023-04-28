@@ -1,2 +1,4 @@
 ---
 # vars file for database
+postgresql_ver=15
+#postgresql_data_dir=
