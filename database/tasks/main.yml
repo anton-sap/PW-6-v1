@@ -3,3 +3,7 @@
 - name: Configure repo
   ansible.builtin.import_tasks:
     file: configure_apt_repo.yml
+  run_once: yes
+- name: Install Postgresql
+  ansible.builtin.import_tasks:
+    file:  install_postgresql.yml
