@@ -1,0 +1,23 @@
+---
+- name:  Install required pkgs while Ubuntu
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+    - ca-certificates
+    - curl
+    - gnupg
+    - python3-apt
+  when:
+    - ansible_facts['os_family'] == "Debian"
+- name: Copy Script to setup Docker repo
+  ansible.builtin.copy:
+    src: files/tmp/setup_docker_repo.sh
+    dest: /tmp/setup_docker_repo.sh
+  when:
+    - ansible_facts['os_family'] == "Debian"
+- name: Execute Script
+  ansible.builtin.command: sh /tmp/setup_docker_repo.sh
+  when:
+    - ansible_facts['os_family'] == "Debian"
+  notify:
+    - apt_update

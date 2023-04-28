@@ -1,87 +1,10 @@
 ---
-# Uninstall old version on Debian based systems
-- name: Uninstall old versions while Debian
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - docker-engine
-    - docker.io
-    - containerd
-    - runc
-  when:
-    - ansible_facts['os_family'] == "Debian"
-# Uninstall old version on RHEL Based Systems
-- name: Uninstall old versions while RedHat
-  ansible.builtin.yum:
-    name: "{{ item }}"
-    state: absent
-  with_items:
-    - docker
-    - docker-client
-    - docker-client-latest
-    - docker-common
-    - docker-latest
-    - docker-latest-logrotate
-    - docker-logrotate
-    - docker-engine
-  when:
-    - ansible_facts['os_family'] == "RedHat"
-# Setup Docker repo on Debian based systems
-- name:  Install required pkgs while Ubuntu
-  ansible.builtin.apt:
-    name: "{{ item }}"
-  with_items:
-    - ca-certificates
-    - curl
-    - gnupg
-    - python3-apt
-  when:
-    - ansible_facts['os_family'] == "Debian"
-- name: Copy Script to setup Docker repo
-  ansible.builtin.copy:
-    src: files/tmp/setup_docker_repo.sh
-    dest: /tmp/setup_docker_repo.sh
-  when:
-    - ansible_facts['os_family'] == "Debian"
-- name: Execute Script
-  ansible.builtin.command: sh /tmp/setup_docker_repo.sh
-  when:
-    - ansible_facts['os_family'] == "Debian"
-  notify:
-    - apt_update
-- name: Install latest docker version while Ubuntu
-  ansible.builtin.apt:
-    name: "{{ item }}"
-  with_items:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-buildx-plugin
-    - docker-compose-plugin
-  when:
-    - ansible_facts['os_family'] == "Debian"
-# Prepare RedHat based systems
-- name: Install Docker Repo while RedHat
-  ansible.builtin.yum:
-    name: yum-utils
-    state: installed
-  when:
-    - ansible_facts['os_family'] == "RedHat"
-- name: Configure Docker Repo
-  ansible.builtin.command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-  when:
-    - ansible_facts['os_family'] == "RedHat"
-- name: Install Docker rpms
-  ansible.builtin.yum:
-    name: "{{ item }}"
-  with_items:
-    - docker-ce
-    - docker-ce-cli
-    - containerd.io
-    - docker-buildx-plugin
-    - docker-compose-plugin
-  notify:
-    - start_docker
-  when:
-  - ansible_facts['os_family'] == "RedHat"
+- name: Uninstall old Docker versions
+  ansible.builtin.import_tasks:
+    file: 1_uninstall_old_docker.yml
+- name: Setup Docker repo on Ubuntu
+  ansible.builtin.import_tasks:
+    file: 2_setup_ubuntu_docker_repo.yml
+- name: Install latest Docker
+  ansible.builtin.import_tasks:
+    file: 3_install_latest_docker.yml

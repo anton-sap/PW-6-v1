@@ -1,0 +1,29 @@
+---
+# Uninstall old version on Debian based systems
+- name: Uninstall old versions while Debian
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+  when:
+    - ansible_facts['os_family'] == "Debian"
+# Uninstall old version on RHEL Based Systems
+- name: Uninstall old versions while RedHat
+  ansible.builtin.yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-engine
+  when:
+    - ansible_facts['os_family'] == "RedHat"
