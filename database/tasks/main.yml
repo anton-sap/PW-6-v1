@@ -1,2 +1,5 @@
 ---
 # tasks file for database
+- name: Configure repo
+  ansible.builtin.import_tasks:
+    file: configure_apt_repo.yml
