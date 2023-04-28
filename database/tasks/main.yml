@@ -7,3 +7,6 @@
 - name: Install Postgresql
   ansible.builtin.import_tasks:
     file: install_postgresql.yml
+- name: Create PGSQL data dir
+  ansible.builtin.import_tasks:
+    file: create_pgsql_data_dir.yml
