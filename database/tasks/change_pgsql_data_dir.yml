@@ -5,3 +5,5 @@
     regexp: '^(.*)data_directory = (.*)$'
     line: 'data_directory = {{ postgresql_data_dir }}'
     backrefs: yes
+  notify:
+    - restart_postrgesql
