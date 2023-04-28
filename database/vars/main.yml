@@ -1,4 +1,4 @@
 ---
 # vars file for database
 postgresql_ver: "14"
-postgresql_data_dir: "/var/postgresql/{{ postgresql_ver }}/main'"
+postgresql_data_dir: "/var/postgresql/{{ postgresql_ver }}/main"
